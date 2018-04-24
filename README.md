@@ -12,6 +12,15 @@ ESP8266 funguje ako MQTT klient a prostrednístvom WiFi komunikuje s MQTT server
 
 ![alt text](https://github.com/hajdiktomas/PDS-projekt/blob/master/img/Schema_zapojenia.jpg)
 
+## Použité súčiastky
+
+- ESP8266 -12E Development Board
+- RFID-RC522 13.56MHz modul
+- LED dióda (indikácia konektivity)
+- 300ohm rezistor (ochrana LED diódy)
+- 8-kanálový reléový modul DC 5V s optočlenom
+- Kávovar
+
 ## Použité knižnice
 - SPI (komunikácia s čítačkou kariet) dostupná: https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/libraries/SPI.
 - MQTT klient (PubSubClient.h) dostupná:  https://github.com/knolleary/pubsubclient.
