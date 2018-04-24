@@ -57,10 +57,10 @@ Tieto správy slúžiia na odosielanie ID aktuálne načítanej čipovej karty, 
 - {"Action":"ReadCard","CardID":<32_uns_int>}
 
 ##### Správa o potvrdení vykonania príkazu:
-- {"Action":"Cleaning","State":<"Of"/"Off">}
-- {"Action":"TurningOn","State":<"Of"/"Off">}
-- {"Action":"TurningOff","State":<"Of"/"Off">}
-- {"Action":"MakingCoffee","State":<"Of"/"Off">}
+- {"Action":"Cleaning","State":<"On"/"Off">}
+- {"Action":"TurningOn","State":<"On"/"Off">}
+- {"Action":"TurningOff","State":<"On"/"Off">}
+- {"Action":"MakingCoffee","State":<"On"/"Off">}
 
 ##### Správa o zmene stavu zariadenia:
 - {"EmptyWatter":<"true"/"false">,"Ready":<"true"/"false">}
