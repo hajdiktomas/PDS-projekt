@@ -45,7 +45,7 @@ Správy:
 - {"Clean":1}
 - {"TurnOn":1}
 - {"TurnOff":1}
-- {"MakeCoffe":1}
+- {"MakeCoffee":1}
 
 
 ### Publish
