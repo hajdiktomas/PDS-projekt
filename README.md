@@ -12,8 +12,16 @@ ESP8266 funguje ako MQTT klient a prostrednístvom WiFi komunikuje s MQTT server
 
 ![alt text](https://github.com/hajdiktomas/PDS-projekt/blob/master/img/Schema_zapojenia.jpg)
 
+## Použité knižnice
+- SPI (komunikácia s čítačkou kariet) dostupná: https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/libraries/SPI.
+- MQTT klient (PubSubClient.h) dostupná:  https://github.com/knolleary/pubsubclient.
+- Spracovanie JSON súborov (ArduinoJson.h) dostupná: https://github.com/bblanchon/ArduinoJson.
+- Bezdrôtový OTA update (ArduinoOTA.h) dostupná: https://github.com/esp8266/Arduino/tree/master/libraries/ArduinoOTA.
+- Čítačka čipových kariet (MFRC522.h) dostupná: https://github.com/miguelbalboa/rfid.
+
 ## Komunikačný MQTT protokol
 
 ### Subscribe
+
 
 ### Publish
