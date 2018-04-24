@@ -58,7 +58,7 @@ Topic:
 
 Správa o načítaní čipovej karty:
 
-- {"Action":"ReadCard","CardID":<uint32>}
+- {"Action":"ReadCard","CardID":<32_uns_int>}
 
 Správa o potvrdení vykonania príkazu:
 
