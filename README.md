@@ -1,6 +1,6 @@
 # PDS projekt - Zprovozneni automatizace automatu na vydavani kavy
 
-Cieľom tohto projektu je s pomocou MQTT protokolu zprevádzkovať automatizáciu automatu na vydávanie kávy. Projek bol zadaný a vznikol v rámci Fakulty Informačních Technologií VUT v Brně, ako študentsk projekt k predmetu PDS.
+Cieľom tohto projektu je s pomocou MQTT protokolu zprevádzkovať automatizáciu automatu na vydávanie kávy. Projek bol zadaný a vznikol v rámci Fakulty Informačních Technologií VUT v Brně, ako študentský projekt k predmetu PDS.
 
 ## Popis projektu
 
