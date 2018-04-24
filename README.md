@@ -10,7 +10,7 @@ ESP8266 funguje ako MQTT klient a prostrednístvom WiFi komunikuje s MQTT server
 
 ## Zapojenie
 
-![alt text](https://github.com/hajdiktomas/PDS-projekt/img/Schema_zapojenia.jpg)
+![alt text](https://github.com/hajdiktomas/blob/master/PDS-projekt/img/Schema_zapojenia.jpg)
 
 ## Komunikačný MQTT protokol
 
