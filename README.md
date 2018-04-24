@@ -70,3 +70,8 @@ Správa o potvrdení vykonania príkazu:
 Správa o zmene stavu zariadenia:
 
 - {"EmptyWatter":<"true"/"false">,"Ready":<"true"/"false">}
+
+### Sekvenčné diagramy priebehu komunikácie
+
+- Zapnutie kávovaru
+![alt text](https://github.com/hajdiktomas/PDS-projekt/blob/master/img/TurnOn.jpg)
