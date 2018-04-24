@@ -36,11 +36,11 @@ Po pripojení ESP8266 ku MQTT sa ESP snaží udržiavať pripojenie stále aktí
 
 Tieto správy slúžia na prijímanie príkazov od MQTT Brokeru. Správy sú posielané s nastaveným parametrom Topic.
 
-Topic:
+##### Topic:
 
 - coffee/cmd
 
-Správy:
+##### Správy:
 
 - {"Clean":1}
 - {"TurnOn":1}
@@ -52,26 +52,26 @@ Správy:
 
 Tieto správy slúžiia na odosielanie ID aktuálne načítanej čipovej karty, potvrdzovanie príkazov odoslaných z MQTT Brokeru a odosielanie aktuálneho stavu zariadenia. Odosielanie prebieha s nastaveným parametrom Topic. Pri načítaní čipovej karty sa odošle správa obsahujúca ID načítanej karty. Po prijatí príkazu zo strany MQTT Brokeru sa odošle potvrdzujúca správa o vykonaní alebo odmietnutí prijatého príkazu. Kedykoľvek sa zmení stav kávovaru napríklad tým, že nie je v zásobníku dostatočné množstvo vody odošle sa správa o stave kávovaru.
 
-Topic:
+##### Topic:
 
 - coffee/stat
 
-Správa o načítaní čipovej karty:
+##### Správa o načítaní čipovej karty:
 
 - {"Action":"ReadCard","CardID":<32_uns_int>}
 
-Správa o potvrdení vykonania príkazu:
+##### Správa o potvrdení vykonania príkazu:
 
 - {"Action":"Cleaning","State":<"Of"/"Off">}
 - {"Action":"TurningOn","State":<"Of"/"Off">}
 - {"Action":"TurningOff","State":<"Of"/"Off">}
 - {"Action":"MakingCoffee","State":<"Of"/"Off">}
 
-Správa o zmene stavu zariadenia:
+##### Správa o zmene stavu zariadenia:
 
 - {"EmptyWatter":<"true"/"false">,"Ready":<"true"/"false">}
 
 ### Sekvenčné diagramy priebehu komunikácie
 
-- Zapnutie kávovaru
+##### Zapnutie kávovaru
 ![alt text](https://github.com/hajdiktomas/PDS-projekt/blob/master/img/TurnOn.jpg)
