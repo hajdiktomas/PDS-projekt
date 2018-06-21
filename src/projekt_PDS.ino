@@ -26,8 +26,8 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 #define ERROR_WATER_LED 3     // D3
 //#define ERROR_RUN_WARNING 10     // D2
 
-#define wifi_ssid "wifi"
-#define wifi_password "heslo"
+#define wifi_ssid "ssid"
+#define wifi_password "password"
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -40,22 +40,22 @@ int filtering_indexWATER = cnt_filtering_val;
 
 int filtering_indexGERRNLED = 25;
 int indexGERRNLED = 0;
+int indexBussSt = 0;
 
 
 int Watter = 0; // 0
 int BussyState = 0;
-int FirstStart = 1;
 
 
 int oncePrintWaterErr = 0;
-int oncePrintGreenLED = 1;
+int oncePrintGreenLED = 0;
 
 char* topic_stat = "coffee/stat";
 char* topic_cmd = "coffee/cmd" ;
 
-#define mqtt_server "mqttserver"
-#define mqtt_password "password"
-#define mqtt_user "user"
+#define mqtt_server "mqtt.nesad.fit.vutbr.cz"
+#define mqtt_password "tansy" //"coffeeAtC308"
+#define mqtt_user "user" //"coffee"
 
 const size_t SIZE = JSON_OBJECT_SIZE(4) + 125;
 StaticJsonBuffer<SIZE> jsonBuffer;
@@ -82,8 +82,8 @@ int filterGreenLed(int *val){
     // nsvieti svieti led => act_val = 0
     if(!act_val){
       indexGERRNLED++;
-      if(indexGERRNLED > 6){
-        indexGERRNLED = 6;
+      if(indexGERRNLED > 10){
+        indexGERRNLED = 10;
         return 1; // off nesvieti
       }
     }
@@ -94,6 +94,22 @@ int filterGreenLed(int *val){
     return 0;
 }
 
+int filterBussyState(int *val){    
+    int act_val = *val;
+    
+    if(act_val){
+      indexBussSt++;
+      if(indexBussSt > 60){
+        indexBussSt = 60;
+        return 0; // not bussy
+      }
+    }
+    else if(!act_val){
+      indexBussSt = 0;
+      return 1; // bussy
+    };
+    return 1;
+}
 
 
 // function set amount of water and coffe and starts knock coffee
@@ -224,33 +240,29 @@ void setup_wifi() {
 void cmd_clean() {
       if (!BussyState){
         startClean();
-        snprintf (msg, 50, "{\"Action\":\"Cleaning\"\"State\":\"On\"}}");
+        snprintf (msg, 50, "{\"Action\":\"Cleaning\",\"State\":\"On\"}");
       }
       else {
         snprintf (msg, 50, "{\"Action\":\"Cleaning\",\"State\":\"Off\"}");        
       }
       client.publish(topic_stat, msg,true);    
 }
+
 void cmd_turnOn() {
-       if (FirstStart){
-         startPowerSwitching();    
-         snprintf (msg, 50, "{\"Action\":\"TurningOn\"\"State\":\"On\"}}");
-         FirstStart = 0;
-      }
-      if (!BussyState){
+//      if (BussyState){
         startPowerSwitching();    
-        snprintf (msg, 50, "{\"Action\":\"TurningOn\"\"State\":\"On\"}}");
-      }
-      else {
-        snprintf (msg, 50, "{\"Action\":\"TurningOn\",\"State\":\"Off\"}");        
-      }
+        snprintf (msg, 50, "{\"Action\":\"TurningOn\",\"State\":\"On\"}");
+//      }
+//      else {
+//        snprintf (msg, 50, "{\"Action\":\"TurningOn\",\"State\":\"Off\"}");        
+//      }
       client.publish(topic_stat, msg,true);
 }
 
 void cmd_turnOff() {
       if (!BussyState){
         startPowerSwitching();      
-        snprintf (msg, 50, "{\"Action\":\"TurningOff\",\"State\":\"On\"}}");
+        snprintf (msg, 50, "{\"Action\":\"TurningOff\",\"State\":\"On\"}");
       }
       else {
         snprintf (msg, 50, "{\"Action\":\"TurningOff\",\"State\":\"Off\"}");        
@@ -261,7 +273,7 @@ void cmd_turnOff() {
 void cmd_makeCoffe() {
       if (!BussyState){
         startDoCoffe();      
-        snprintf (msg, 50, "{\"Action\": \"MakingCoffee\",\"State\":\"On\"}");
+        snprintf (msg, 50, "{\"Action\":\"MakingCoffee\",\"State\":\"On\"}");
       }
             else {
         snprintf (msg, 50, "{\"Action\":\"MakingCoffee\",\"State\":\"Off\"}");        
@@ -347,16 +359,19 @@ void handleErrorWater(){
 void handleOkGreenLed(){
     int act_val = analogRead(A0);
     int diodeLight = !filterGreenLed(&act_val); // 1- svieti 0-nesvieti
-   
+    
 
-    if(diodeLight){     
-               
-    }      
-    else{ 
-       
-    }
-    snprintf (msg, 50, "{\":%u \tfVal %u \tStatled  }", act_val, diodeLight);
-    client.publish(topic_stat, msg,true);
+    int tmp = filterBussyState(&diodeLight);
+
+    // ak nastala zmena
+    if(BussyState != tmp){     
+       BussyState = tmp;
+       sendStat();
+
+    }   
+
+        snprintf (msg, 40, "ActVal %u\t diodeLight %u\t FiltBS %u", act_val, diodeLight, tmp);
+        client.publish("dbg", msg,true);
 }
 
 void sendStat(){
